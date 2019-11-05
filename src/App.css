@@ -20,3 +20,149 @@
 .App-link {
   color: #09d3ac;
 }
+
+#eventName {
+  text-align: center;
+  font: helvetica;
+  font-size: 8vw;
+  color: white;
+  
+}
+
+#time{
+  font: helvetica;
+  color: white;
+  position: absolute;
+  bottom: -2%;
+  left: 10%;
+  font-size: 190%;
+}
+
+#timediv {
+  background-color: rgb(255, 99, 25);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+ 
+  position: absolute;
+  top: 130%;
+  left: 10%;
+}
+
+#categoryIcon {
+  background-color: rgb(0, 57, 166);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 130%;
+  left: 2%;
+
+}
+
+#categoryAbb {
+  font: helvetica;
+  color: white;
+  position: absolute;
+  bottom: -8%;
+  left: 30%;
+  font-size: 240%;
+  
+}
+
+#pricediv {
+  background-color: rgb(0, 147, 60);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 130%;
+  left: 18%;
+}
+
+#priceLabel  {
+  font: helvetica;
+  color: white;
+  position: absolute;
+  bottom: -3%;
+  left: 15%;
+  font-size: 190%;
+  
+}
+
+body {
+  background-color: black;
+  overflow-x: hidden;
+}
+
+#line {
+  border: 5px solid white;
+  position: absolute;
+  top: 125%;
+  width: 100%;
+}
+
+#eventHeader {
+  position: relative;
+  margin: auto;
+  width: 100%;
+}
+
+#payButton {
+  position: absolute;
+  top: 85%;
+  left: 44%;
+  width: 12%;
+}
+
+#icons {
+  position: relative;
+  left: 71%;
+}
+
+#venueAndInfoContainer {
+  position: relative;
+  position: absolute;
+  left: 4%;
+  top: 140%;
+  width: 18%;
+}
+
+#venueName {
+  font: helvetica;
+  font-size: 260%;
+  border: 1px solid white ;
+  color: white;
+  padding: 1%;
+  text-align: center;
+
+}
+#neighborhood {
+  font: helvetica;
+  font-size: 180%;
+  text-align: center;
+  border: 1px solid white ;
+  color: white;
+  position: absolute;
+  top: 70%;
+  padding: 2%;
+}
+
+#address {
+  position: absolute;
+  top: 95%;
+}
+
+#logoContainer {
+  position: absolute;
+  top: 70%;
+  left: 41%;
+}
+
+#logo {
+  width: 18vw;
+  height: auto;
+  position: absolute;
+  
+}
+
