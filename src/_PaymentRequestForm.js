@@ -6,8 +6,10 @@ import {
     Elements,
     } from 'react-stripe-elements';
 
-    class _PaymentRequestForm extends Component {
+    // import QRCode from './QRCodeDownload'
+    import QRCode from 'qrcode.react'
 
+    class _PaymentRequestForm extends Component {
     constructor(props) {
         super(props);
 
@@ -26,9 +28,55 @@ import {
         requestPayerEmail: true,
         });
 
-        paymentRequest.on('token', ({complete, token, ...data}) => {
-        props.handleResult({paymentRequest: {token, data}});
-        complete('success');
+        paymentRequest.on('paymentmethod', function(ev) {
+            console.log(ev)
+            const id = ev.paymentMethod.id
+            const secret = "sk_test_2N4c0cduUlVkHqjCXEVrjNcM00NS3ArAs0"
+            const clientSecret = `${id}_secret_${secret}`
+             // Confirm the PaymentIntent without handling potential next actions (yet).
+            
+    props.stripe.confirmCardPayment(
+        clientSecret,
+        {payment_method: id},
+        {handleActions: false}
+    ).then(function(confirmResult) {
+        console.log(confirmResult.error)
+        
+        if (confirmResult.error) {
+        // Report to the browser that the payment failed, prompting it to
+        // re-show the payment interface, or show an error message and close
+        // the payment interface.
+
+        
+            // window.location.href = 'http://hoods-wallet.herokuapp.com/ticket'; 
+            // <div>
+            // <QRCode
+            //     id="123456"
+            //     value="123456"
+            //     size={290}
+            //     level={"H"}
+            //     includeMargin={true}
+            //     />
+            //     <a onClick={this.downloadQR}> Download QR </a>
+            // </div>
+        
+        ev.complete('fail');
+        } else {
+        // Report to the browser that the confirmation was successful, prompting
+        // it to close the browser payment method collection interface.
+        console.log("This is the error section")
+        ev.complete('success');
+        // Let Stripe.js handle the rest of the payment flow.
+        props.stripe.confirmCardPayment(clientSecret).then(function(result) {
+            if (result.error) {
+            // The payment failed -- ask your customer for a new payment method.
+            } else {
+            // The payment has succeeded.
+            }
+        });
+        }
+    });
+        
         });
 
         paymentRequest.canMakePayment().then((result) => {
@@ -40,6 +88,20 @@ import {
         paymentRequest,
         };
     }
+
+    downloadQR = () => {
+        const canvas = document.getElementById("123456");
+        const pngUrl = canvas
+            .toDataURL("image/png")
+            .replace("image/png", "image/octet-stream");
+            let downloadLink = document.createElement("a");
+            downloadLink.href = pngUrl;
+            downloadLink.download = "123456.png";
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        };
+
 
     render() {
         return this.state.canMakePayment ? (
@@ -73,7 +135,7 @@ import {
     export class PaymentRequestDemo extends Component {
     render() {
         return (
-        <StripeProvider apiKey="pk_test_E1clmPG3gbZZ4QatxXyn2Dbr00kNJFsGqn">
+        <StripeProvider apiKey={this.props.stripePublicKey}>
             <Elements>
             <PaymentRequestForm handleResult={this.props.handleResult} />
             </Elements>
